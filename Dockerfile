@@ -1,10 +1,14 @@
-FROM shoothzj/compile:jdk21-gradle AS compiler
+FROM shoothzj/compile:jdk21-gradle-node AS compiler
 
-RUN git clone --depth 1 https://github.com/apache/pulsar-manager.git && \
-    cd pulsar-manager && \
-    gradle build -x test && \
-    mkdir /opt/pulsarmanager && \
-    tar -xf /pulsarmanager/target/pulsarmanager.tar.gz -C /opt/pulsarmanager --strip-components 1
+RUN git clone --depth 1 https://github.com/apache/pulsar-manager.git
+
+WORKDIR /pulsar-manager
+
+RUN gradle build -x test
+
+RUN mkdir /opt/pulsarmanager
+
+RUN tar -xf /pulsar-manager/build/distributions/pulsar-manager.tar -C /opt/pulsarmanager --strip-components 1
 
 FROM shoothzj/base:jdk21
 
