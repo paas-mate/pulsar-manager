@@ -1,4 +1,10 @@
-FROM shoothzj/compile:jdk21-gradle-node AS compiler
+FROM shoothzj/compile:jdk17-gradle-node AS compiler
+
+RUN curl -sL https://deb.nodesource.com/setup_20.x -o /tmp/nodesource_setup.sh && \
+    bash /tmp/nodesource_setup.sh && \
+    rm -rf /tmp/nodesource_setup.sh && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends nodejs
 
 RUN git clone --depth 1 https://github.com/apache/pulsar-manager.git
 
