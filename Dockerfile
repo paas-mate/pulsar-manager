@@ -10,7 +10,9 @@ RUN mkdir /opt/pulsarmanager
 
 RUN tar -xf /pulsar-manager/build/distributions/pulsar-manager.tar -C /opt/pulsarmanager --strip-components 1
 
-FROM shoothzj/base:jdk21
+RUN rm -f /opt/pulsarmanager/bin/pulsar-manager.bat
+
+FROM shoothzj/base:jdk17
 
 WORKDIR /opt
 
@@ -21,5 +23,7 @@ ENV pulsarmanager_HOME /opt/pulsarmanager
 COPY --chmod=0755 entrypoint.sh /opt/pulsarmanager/entrypoint.sh
 
 WORKDIR /opt/pulsarmanager
+
+CMD [ "/opt/pulsarmanager/bin/pulsar-manager" ]
 
 ENTRYPOINT [ "/opt/pulsarmanager/entrypoint.sh" ]
