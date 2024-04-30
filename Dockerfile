@@ -1,4 +1,4 @@
-FROM shoothzj/compile:jdk17-gradle-node AS compiler
+FROM shoothzj/compile:jdk17-gradle AS compiler
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x -o /tmp/nodesource_setup.sh && \
     bash /tmp/nodesource_setup.sh && \
